@@ -27,10 +27,12 @@ namespace ConsoleApp2
         {
             Item item1 = new Item("무쇠갑옷", StatTpye.방어력, 5, "무쇠로 만들어져 튼튼한 갑옷입니다.", 500);
             shopItem.Add(item1);
+            player.AddInventory(item1);
             Item item2 = new Item("다이아갑옷", StatTpye.방어력, 8, "다이아로 만들어져 튼튼한 갑옷입니다.", 1000);
             shopItem.Add(item2);
             Item item3 = new Item("스파르타의 창", StatTpye.공격력, 7, "스파르타의 전사들이 사용했다는 전설의 창입니다.", 1000);
             shopItem.Add(item3);
+            player.AddInventory(item3);
             Item item4 = new Item("스파르타의 검", StatTpye.공격력, 10, "스파르타의 전사들이 사용한 검입니다.", 1500);
             shopItem.Add(item4);
             GameStart();
@@ -46,6 +48,7 @@ namespace ConsoleApp2
             public int _Maxhp;
             public int _currnthp;
             public int _gold;
+
             public List<Item> _inventory;
             public int[] _needlevelexp;
             public Item _weapon;
@@ -76,6 +79,7 @@ namespace ConsoleApp2
             public StatTpye _stattype;
             public int _statvalue;
             public string _description;
+
             public bool _isequip;
             public bool _isbuy;
             public int _price;
@@ -102,8 +106,6 @@ namespace ConsoleApp2
             Console.WriteLine("5. 휴식하기");
             Console.WriteLine("");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-
-
             var key = Console.ReadKey(true).Key;
             switch (key)
             {
@@ -137,6 +139,7 @@ namespace ConsoleApp2
                     Console.WriteLine("잘못된 입력입니다.");
                     GameStart();
                     break;
+
             }
         }
         public static void ShowStat(Player player)
@@ -176,9 +179,10 @@ namespace ConsoleApp2
             Console.WriteLine("인벤토리");
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
             Console.WriteLine("[아이템목록]");
-            foreach (Item item in inventory)
+            foreach (Item item in inventory) 
             {
                 string equip = string.Empty;
+
                 if (player._weapon.Equals(item) || player._armor.Equals(item))
                     equip = "[E]";
                 Console.WriteLine($"- {equip}{item._name}     | {item._stattype} +{item._statvalue}  | {item._description}");
@@ -334,6 +338,7 @@ namespace ConsoleApp2
             foreach (Item item in shopItem)
             {
                 string isBuy = string.Empty;
+                
                 if (item._isbuy)
                     isBuy = "구매완료";
                 else
